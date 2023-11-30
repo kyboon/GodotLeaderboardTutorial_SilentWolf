@@ -1,0 +1,120 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmq3sw023mmrm"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_3ijj8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1v0x"]
+bg_color = Color(0.14902, 0.2, 0.313726, 0.921569)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("score_label", "timer_label", "leaderboard_label", "timer", "game_over_panel", "game_over_score_label", "player_name_text_edit", "submit_button")]
+script = ExtResource("1_3ijj8")
+score_label = NodePath("Score label")
+timer_label = NodePath("Time label")
+leaderboard_label = NodePath("Leaderboard label")
+timer = NodePath("Timer")
+game_over_panel = NodePath("GameOverPanel")
+game_over_score_label = NodePath("GameOverPanel/VBoxContainer/Game Over Score Label")
+player_name_text_edit = NodePath("GameOverPanel/VBoxContainer/PlayerNameTextEdit")
+submit_button = NodePath("GameOverPanel/VBoxContainer/SubmitButton")
+
+[node name="Score label" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 319.0
+offset_bottom = 122.0
+theme_override_font_sizes/font_size = 50
+text = "Score: 0"
+
+[node name="Time label" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 150.0
+offset_right = 319.0
+offset_bottom = 222.0
+theme_override_font_sizes/font_size = 50
+text = "Time left: 3"
+
+[node name="Click Button" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 0)
+offset_left = 50.0
+offset_top = 250.0
+offset_right = 350.0
+offset_bottom = 327.0
+theme_override_font_sizes/font_size = 50
+text = "Click"
+
+[node name="Leaderboard label" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 1030.0
+offset_top = 50.0
+offset_right = 1230.0
+offset_bottom = 102.0
+grow_horizontal = 0
+text = "Leaderboard
+?"
+horizontal_alignment = 2
+
+[node name="GameOverPanel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1255.0
+offset_bottom = 695.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h1v0x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPanel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 1205.0
+offset_bottom = 645.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Game Over label" type="Label" parent="GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Game Over Score Label" type="Label" parent="GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Your score: 0"
+horizontal_alignment = 1
+
+[node name="Highscore label" type="Label" parent="GameOverPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = " "
+horizontal_alignment = 1
+
+[node name="PlayerNameTextEdit" type="TextEdit" parent="GameOverPanel/VBoxContainer"]
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+placeholder_text = "Enter your name here"
+
+[node name="SubmitButton" type="Button" parent="GameOverPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "Submit"
+
+[node name="RestartButton" type="Button" parent="GameOverPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "Restart"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="pressed" from="Click Button" to="." method="_on_click_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
